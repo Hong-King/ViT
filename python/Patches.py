@@ -4,7 +4,7 @@ import os
 from PIL import Image
 import sys
 
-## make wheels
+## Wheels
 from read_im import read_im
 
 path =  "D:\CV\Codes\ViT\data_test"
