@@ -2,7 +2,7 @@
 
 For more details, please move to [My Blog](https://hong-king.github.io/2023/07/01/Vision%20Transformer%20(ViT)%20Algorithm/)
 
-Reference Blog: [Chinese](https://blog.csdn.net/weixin_44966641/article/details/118733341?spm=1001.2014.3001.5501)
+> Note: this implementation is based on this [Blog](https://blog.csdn.net/weixin_44966641/article/details/118733341?spm=1001.2014.3001.5501), many thanks to the author for sharing.
 
 ## 导入依赖
 
@@ -51,6 +51,8 @@ $$
 
 其中，`self.norm(x)`实现$LN(z_{l-1})$及$LN(z'_l)$操作，并将结果作为输入传入`self.fn()`所表示的函数；而`self.fn()`用于实现$MLP()$及$MSA()$操作，即调用下文的`FeedForward`及`Attention`函数，其中`**kwargs`实现灵活传参
 
+* 如果你对`nn.LayerNorm()`感到疑惑，参见[此博客](https://blog.csdn.net/weixin_41978699/article/details/122778085)
+
 ## MLP
 
 ```python
@@ -72,7 +74,7 @@ class FeedForward(nn.Module):
 * 该函数实现多层感知机功能，由线性层、激活函数GRLU和Dropout实现
 * 参数`dim`表示输入和输出的数据维度
 * 参数`hidden_dim`表示中间层的维度
-* 参数`dropout`表示随机抛弃数据的概率
+* 参数`dropout`表示随机抛弃数据的概率，详情参见此[Blog](https://blog.csdn.net/leviopku/article/details/120786990)
 
 ## MSA
 
