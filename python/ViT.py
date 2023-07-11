@@ -2,6 +2,9 @@
 import torch
 from torch import nn, einsum
 import torch.nn.functional as F
+import numpy as np
+import os
+from PIL import Image
 
 from einops import rearrange, repeat
 from einops.layers.torch import Rearrange
@@ -138,7 +141,7 @@ class ViT(nn.Module):
 model_vit = ViT(
     image_size= 256,
     patch_size= 32,
-    num_classes= 1000,
+    num_classes= 3,
     dim= 1024,
     depth= 6,
     heads= 16,
@@ -147,8 +150,47 @@ model_vit = ViT(
     emb_dropout= 0.1
 )
 
-img = torch.randn(16, 3, 256, 256)
+def read_im(path, endpoint = None):
+    images = []
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            file_path = os.path.join(root, file)
+            img = Image.open(file_path)
+            img = img.resize((256,256))
 
-preds = model_vit(img)
+            images.append(np.array(img))
 
-print(preds.shape)
+    return images
+
+path =  "D:\CV\Codes\ViT\data_test"
+a = read_im(path)
+# print(type(a))
+a = np.array(a,dtype=np.float32) # dtype=np.float64
+# print(a.shape)
+a = torch.tensor(a)
+# print(a.shape)
+a = a.transpose(1,3)
+print(type(a))
+# print(a.shape)
+
+
+
+# img = torch.randn(30, 3, 512, 512)
+# print(type(img))
+
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+a = a.to(device)
+print(a.is_cuda)
+
+model_vit.to(device)
+preds = model_vit(a)
+# preds.to(device)
+
+
+# preds = model_vit(a)
+
+result = preds
+
+scores, index = torch.max(result, dim=1)
+
+print(index)    

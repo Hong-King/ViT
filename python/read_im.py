@@ -24,5 +24,8 @@ def read_im(path, endpoint = None):
 #             img = Image.open(file_path)
 #             print(folder_name, img_name, img.size)
 
-# path =  "D:\CV\Codes\ViT\data_test"
-# read_im(path)
+## TEST CODES
+path =  "D:\CV\Codes\ViT\data_test"
+a = read_im(path)
+a = np.array(a)
+print(a.shape)
