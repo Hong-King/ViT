@@ -1,7 +1,5 @@
 # ViT
 
-this is a tests
-
 For more details, please move to [My Blog](https://hong-king.github.io/2023/07/04/Vision%20Transformer%20(ViT)%20Algorithm/)
 
 > Note: this implementation is based on this [Blog](https://blog.csdn.net/weixin_44966641/article/details/118733341?spm=1001.2014.3001.5501), many thanks to the author for sharing.
